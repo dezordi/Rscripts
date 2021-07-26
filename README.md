@@ -20,3 +20,23 @@ This script use the ggplot package to create a stacked barplot of genomic positi
 ### result
 
 ![](example_figures/frequency_example.png)
+
+## karyoplot.R
+
+This script use the karyoploteR package to create a plot of sequecing depth over the genome. The rscript is configured to SARS-CoV-2 genome, for other viruses, the start and end variables should be modified in lines 23 and 25. Three files are needed:
+
+- sorted.bam: The sorted bam file.
+- sorted.bam.bai: The index of sorted bam file.
+- cytobands.tsv: A tsv file with cytobands information.
+
+The script receive 3 arguments:
+
+> Rscript karyoplot.R <sorted.bem> <cytobands.tsv> <sample_name>
+
+### usage
+
+> Rscript karyoplot.R example_files/karyoplot_example.sorted.bam example_files/karyoplot_example_cytobands.tsv karyoplot
+
+### result
+
+![](example_figures/karyoplot_example.png)
