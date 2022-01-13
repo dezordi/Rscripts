@@ -17,7 +17,7 @@ library(Rsamtools)
 
 
 pdf(file = output_pdf,
-    width = 8, 
+    width = 8,
     height = 3)
 
 custom.genome <- toGRanges(data.frame(chr=reference_name, start=1, end=29903))
