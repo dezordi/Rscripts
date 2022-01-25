@@ -71,7 +71,8 @@ ggplot(intrahost_table_genero, aes(x = Genero, y = iSNVs)) +
   annotate("text", x='Feminino', y=39, label= paste("Desvio: ",fem_values$Stdev,sep=' ')) +
   annotate("text", x='Masculino', y=39, label= paste("Desvio: ",masc_values$Stdev,sep=' ')) +
   scale_color_manual(values = cols_lineages) +
-  stat_compare_means(method = 'wilcox.test', label = "p.signif", label.y = 30, label.x=1.5)
+  stat_compare_means(method = 'wilcox.test', label = "p.signif", label.y = 30, label.x=1.5) +
+  stat_compare_means()
 
 
 ##boxplot de iSNVs por linhagem
@@ -154,7 +155,7 @@ ggplot(intrahost_table, aes(x = lineage_up_major, y = iSNVs)) +
   annotate("text", x='P.2', y=33, label= paste("Média: ",p2_values$Mean,sep=' '))+
   annotate("text", x='P.2', y=31, label= paste("Desvio: ",p2_values$Stdev,sep=' ')) +
   stat_compare_means(method = "kruskal.test", label.y = 45) +
-  stat_compare_means(label = "p.signif", method = "t.test",
+  stat_compare_means(label = "p.signif", method = "wilcox.test",
                      ref.group = ".all.", label.y = 40)
   
 ##boxplot de iSNVs por faixa etária
@@ -209,7 +210,7 @@ ggplot(intrahost_table_idade, aes(x = grupo, y = iSNVs)) +
   annotate("text", x='66+', y=43, label= paste("Média: ",values_66mais$Mean,sep=' '))+
   annotate("text", x='66+', y=41, label= paste("Desvio: ",values_66mais$Stdev,sep=' ')) +
   stat_compare_means(method = "kruskal.test", label.y = 45) +
-  stat_compare_means(label = "p.signif", method = "t.test",
+  stat_compare_means(label = "p.signif", method = "wilcox.test",
                      ref.group = ".all.", label.y = 30)
 
 ##correlacao iSNV profundidade
@@ -225,7 +226,7 @@ ggscatter(intrahost_table, x = "depth_iSNV", y = "iSNVs",
 
 x_order <- c("2020_01", "2020_02", "2020_03", "2020_04", "2020_05", "2020_06", 
              "2020_07", "2020_08", "2020_09", "2020_10", "2020_11", "2020_12", 
-             "2021_01", "2021_02", "2021_03", "2021_04", "2021_05", "20210_6",
+             "2021_01", "2021_02", "2021_03", "2021_04", "2021_05", "2021_06",
              "2021_07","2021_08", "2021_09", "2021_10")
 
 lineages_period <- intrahost_table %>%
@@ -295,7 +296,7 @@ values_2021_05 <- intrahost_data_valores %>%
   filter(period == "2021_05")
 
 values_2021_06 <- intrahost_data_valores %>%
-  filter(period == "2021_05")
+  filter(period == "2021_06")
 
 values_2021_07 <- intrahost_data_valores %>%
   filter(period == "2021_07")
@@ -321,19 +322,25 @@ ggplot(data_lineages, aes(x=factor(period, levels = x_order),y=iSNVs)) +
   theme(axis.text.x = element_text(angle = 90))+
   scale_color_manual(values = cols_lineages)  +
   stat_compare_means(method = "kruskal.test", label.y = 45) +
-  stat_compare_means(label = "p.signif", method = "t.test",
+  stat_compare_means(label = "p.signif", method = "wilcox.test",
                      ref.group = ".all.", label.y = 30) +
-  annotate("text", x='2020_04', y=37, label= paste("Média: ",values_2020_04$Mean,sep=' '), size = 1.8)+
-  annotate("text", x='2020_04', y=36, label= paste("Desvio: ",values_2020_04$Stdev,sep=' '), size = 1.8) +
-  annotate("text", x='2020_05', y=37, label= paste("Média: ",values_2020_05$Mean,sep=' '), size = 1.8)+
-  annotate("text", x='2020_05', y=36, label= paste("Desvio: ",values_2020_05$Stdev,sep=' '), size = 1.8) +
-  annotate("text", x='2020_09', y=37, label= paste("Média: ",values_2020_09$Mean,sep=' '), size = 1.8)+
-  annotate("text", x='2020_09', y=36, label= paste("Desvio: ",values_2020_09$Stdev,sep=' '), size = 1.8) +
-  annotate("text", x='2020_10', y=37, label= paste("Média: ",values_2020_10$Mean,sep=' '), size = 1.8)+
-  annotate("text", x='2020_10', y=36, label= paste("Desvio: ",values_2020_10$Stdev,sep=' '), size = 1.8) +
-  annotate("text", x='2020_11', y=37, label= paste("Média: ",values_2020_11$Mean,sep=' '), size = 1.8)+
-  annotate("text", x='2020_11', y=36, label= paste("Desvio: ",values_2020_11$Stdev,sep=' '), size = 1.8) +
-  annotate("text", x='2021_07', y=37, label= paste("Média: ",values_2021_07$Mean,sep=' '), size = 1.8)+
-  annotate("text", x='2021_07', y=36, label= paste("Desvio: ",values_2021_07$Stdev,sep=' '), size = 1.8) +
-  annotate("text", x='2021_08', y=37, label= paste("Média: ",values_2021_08$Mean,sep=' '), size = 1.8)+
-  annotate("text", x='2021_08', y=36, label= paste("Desvio: ",values_2021_08$Stdev,sep=' '), size = 1.8)
+  annotate("text", x='2020_04', y=37, label= paste("Média: ",values_2020_04$Mean,sep=' '), size = 2.5)+
+  annotate("text", x='2020_04', y=36, label= paste("Desvio: ",values_2020_04$Stdev,sep=' '), size = 2.5) +
+  annotate("text", x='2020_05', y=27, label= paste("Média: ",values_2020_05$Mean,sep=' '), size = 2.5)+
+  annotate("text", x='2020_05', y=26, label= paste("Desvio: ",values_2020_05$Stdev,sep=' '), size = 2.5) +
+  annotate("text", x='2020_08', y=37, label= paste("Média: ",values_2020_08$Mean,sep=' '), size = 2.5)+
+  annotate("text", x='2020_08', y=36, label= paste("Desvio: ",values_2020_08$Stdev,sep=' '), size = 2.5) +
+  annotate("text", x='2020_09', y=27, label= paste("Média: ",values_2020_09$Mean,sep=' '), size = 2.5)+
+  annotate("text", x='2020_09', y=26, label= paste("Desvio: ",values_2020_09$Stdev,sep=' '), size = 2.5) +
+  annotate("text", x='2020_10', y=37, label= paste("Média: ",values_2020_10$Mean,sep=' '), size = 2.5)+
+  annotate("text", x='2020_10', y=36, label= paste("Desvio: ",values_2020_10$Stdev,sep=' '), size = 2.5) +
+  annotate("text", x='2020_11', y=27, label= paste("Média: ",values_2020_11$Mean,sep=' '), size = 2.5)+
+  annotate("text", x='2020_11', y=26, label= paste("Desvio: ",values_2020_11$Stdev,sep=' '), size = 2.5) +
+  annotate("text", x='2021_04', y=37, label= paste("Média: ",values_2021_04$Mean,sep=' '), size = 2.5)+
+  annotate("text", x='2021_04', y=36, label= paste("Desvio: ",values_2021_04$Stdev,sep=' '), size = 2.5) +
+  annotate("text", x='2021_05', y=27, label= paste("Média: ",values_2021_05$Mean,sep=' '), size = 2.5)+
+  annotate("text", x='2021_05', y=26, label= paste("Desvio: ",values_2021_05$Stdev,sep=' '), size = 2.5) +
+  annotate("text", x='2021_07', y=37, label= paste("Média: ",values_2021_07$Mean,sep=' '), size = 2.5)+
+  annotate("text", x='2021_07', y=36, label= paste("Desvio: ",values_2021_07$Stdev,sep=' '), size = 2.5) +
+  annotate("text", x='2021_08', y=27, label= paste("Média: ",values_2021_08$Mean,sep=' '), size = 2.5)+
+  annotate("text", x='2021_08', y=26, label= paste("Desvio: ",values_2021_08$Stdev,sep=' '), size = 2.5)
