@@ -15,7 +15,9 @@ This script use the ggplot package to create a stacked barplot of genomic positi
 
 ### usage
 
-> Rscript frequency.R frequency_example.tsv
+```
+Rscript frequency.R frequency_example.tsv
+```
 
 ### result
 
@@ -31,12 +33,43 @@ This script use the karyoploteR package to create a plot of sequecing depth over
 
 The script receive 3 arguments:
 
-> Rscript karyoplot.R <sorted.bem> <cytobands.tsv> <sample_name>
+```
+Rscript karyoplot.R <sorted.bem> <cytobands.tsv> <sample_name>
+```
 
 ### usage
 
-> Rscript karyoplot.R example_files/karyoplot_example.sorted.bam example_files/karyoplot_example_cytobands.tsv karyoplot
+```
+Rscript karyoplot.R example_files/karyoplot_example.sorted.bam example_files/karyoplot_example_cytobands.tsv karyoplot
+```
 
 ### result
 
 ![](example_figures/karyoplot_example.png)
+
+## convert_date
+
+This script convert YYYY-MM-DD date to decimal date format, a pattern used in several bioinformatics tools.
+
+The script receive 2 arguments:
+
+```
+Rscript convert_date.r <input> <output>
+```
+
+### usage
+
+```
+Rscript convert_date.r example_files/date.tsv dates.csv
+```
+
+### result
+
+```
+name,date
+NC_045512.2,2019.98356164384
+Vietnam/VNHN_0554/2020,2020.1912568306
+Venezuela/NE1428/2021,2021.37808219178
+Venezuela/Mon8961/2021,2021.52054794521
+Venezuela/Lar7/2021,2021.35616438356
+```
